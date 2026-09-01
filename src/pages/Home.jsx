@@ -7,7 +7,7 @@ const Home = () => {
       <Navbar />
 
       {/* HERO SECTION */}
-      <section className="relative w-full h-[600px] md:h-[700px] flex items-center">
+      <section className="relative w-full h-150 md:h-175 flex items-center">
         {/* Background Image & Overlay Gelap */}
         <div
           className="absolute inset-0 bg-cover bg-center"
@@ -69,7 +69,7 @@ const Home = () => {
         </div>
       </section>
 
-      <main className="flex-grow bg-white min-h-[300px]"></main>
+      <main className="grow min-h-75"></main>
 
       <Footer />
     </div>
