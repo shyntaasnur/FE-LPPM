@@ -12,6 +12,7 @@ import Agenda from './pages/Agenda';
 import Layanan from './pages/Layanan';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
+import Tautan from './pages/Tautan';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/layanan" element={<Layanan />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/tautan" element={<Tautan />} />
       </Routes>
     </BrowserRouter>
   );
