@@ -253,6 +253,7 @@ const Home = () => {
         </div>
       </section>
 
+
       <main className="grow bg-white min-h-75">
         {/* PORTAL LAYANAN SECTION */}
         <section className="w-full py-12 md:py-20">
@@ -510,6 +511,7 @@ const Home = () => {
     </div>
   </section>
       </main>
+
 
       <Footer />
     </div>
