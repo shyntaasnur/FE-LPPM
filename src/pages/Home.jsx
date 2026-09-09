@@ -510,7 +510,6 @@ const Home = () => {
     </div>
   </section>
       </main>
-=========
       <main className="grow min-h-75"></main>
 
       <Footer />
