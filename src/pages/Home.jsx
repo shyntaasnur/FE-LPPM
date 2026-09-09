@@ -253,7 +253,6 @@ const Home = () => {
         </div>
       </section>
 
-
       <main className="grow bg-white min-h-75">
         {/* PORTAL LAYANAN SECTION */}
         <section className="w-full py-12 md:py-20">
@@ -270,7 +269,7 @@ const Home = () => {
                 <a
                   key={item.id}
                   href={`#${item.title.toLowerCase()}`}
-                  className="group flex flex-col items-center justify-center w-full aspect-square max-w-[90px] sm:max-w-[120px] md:max-w-[144px] bg-[#0b1b36] rounded-full text-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer p-2"
+                  className="group flex flex-col items-center justify-center w-full aspect-square max-w-22.5 sm:max-w-30 md:max-w-36 bg-[#0b1b36] rounded-full text-white shadow-md hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer p-2"
                 >
                   {/* Sizing ikon disesuaikan buat HP */}
                   <div className="mb-1 md:mb-2 text-white/90 group-hover:text-white transition-colors [&>svg]:w-5 [&>svg]:h-5 sm:[&>svg]:w-7 sm:[&>svg]:h-7 md:[&>svg]:w-8 md:[&>svg]:h-8">
@@ -458,7 +457,7 @@ const Home = () => {
         {journals.map((journal) => (
           <div key={journal.id} className="group cursor-pointer">
             {/* Card Mockup / Cover Image */}
-            <div className="w-full aspect-[3/4] bg-slate-100 rounded-xl overflow-hidden shadow-sm border border-slate-200/80 mb-3 group-hover:shadow-md group-hover:-translate-y-1 transition-all duration-300">
+            <div className="w-full aspect-3/4 bg-slate-100 rounded-xl overflow-hidden shadow-sm border border-slate-200/80 mb-3 group-hover:shadow-md group-hover:-translate-y-1 transition-all duration-300">
               <img
                 src={journal.image}
                 alt={journal.title}
@@ -511,7 +510,8 @@ const Home = () => {
     </div>
   </section>
       </main>
-
+=========
+      <main className="grow min-h-75"></main>
 
       <Footer />
     </div>

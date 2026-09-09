@@ -442,4 +442,4 @@ const Jurnal = () => {
   );
 };
 
-export default Jurnal;
+export default Jurnal; 
