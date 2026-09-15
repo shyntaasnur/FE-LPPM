@@ -1,38 +1,74 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
-// 1. Import Pages Publik LPPM
-import Home from './pages/Home';
-import Profil from './pages/Profil';
-import Penelitian from './pages/Penelitian';
-import PKM from './pages/PKM';
-import Jurnal from './pages/Jurnal';
-import Dokumen from './pages/Dokumen';
-import Berita from './pages/Berita';
-import Agenda from './pages/Agenda';
-import Layanan from './pages/Layanan';
-import Contact from './pages/Contact';
-import Login from './pages/Login';
-import Tautan from './pages/Tautan';
+// Layouts
+import PublicLayout from './layouts/PublicLayout';
+import AdminLayout from './layouts/AdminLayout';
+
+// Guard
+import ProtectedRoute from './routes/ProtectedRoute';
+
+// Auth Page
+import Login from './pages/auth/Login';
+
+// Public Pages
+import Home from './pages/public/Home';
+import Profil from './pages/public/Profil';
+import Penelitian from './pages/public/Penelitian';
+import PKM from './pages/public/PKM';
+import Jurnal from './pages/public/Jurnal';
+import Dokumen from './pages/public/Dokumen';
+import Berita from './pages/public/Berita';
+import Agenda from './pages/public/Agenda';
+import Layanan from './pages/public/Layanan';
+import Contact from './pages/public/Contact';
+import Tautan from './pages/public/Tautan';
+
+// Admin Pages
+import DashboardOverview from './pages/admin/DashboardOverview';
+import KelolaBerita from './pages/admin/KelolaBerita';
+import KelolaAgenda from './pages/admin/KelolaAgenda';
+import KelolaDokumen from './pages/admin/KelolaDokumen';
+import KelolaJurnal from './pages/admin/KelolaJurnal';
+import KelolaPenelitian from './pages/admin/KelolaPenelitian';
+import KelolaPKM from './pages/admin/KelolaPKM';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
-        {/* 2. Rute Halaman Publik & Login */}
-        <Route path="/" element={<Home />} />
-        <Route path="/profil" element={<Profil />} />
-        <Route path="/penelitian" element={<Penelitian />} />
-        <Route path="/pkm" element={<PKM />} />
-        <Route path="/jurnal" element={<Jurnal />} />
-        <Route path="/dokumen" element={<Dokumen />} />
-        <Route path="/berita" element={<Berita />} />
-        <Route path="/agenda" element={<Agenda />} />
-        <Route path="/layanan" element={<Layanan />} />
-        <Route path="/contact" element={<Contact />} />
+        {/* 1. HALAMAN PUBLIK */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/profil" element={<Profil />} />
+          <Route path="/penelitian" element={<Penelitian />} />
+          <Route path="/pkm" element={<PKM />} />
+          <Route path="/jurnal" element={<Jurnal />} />
+          <Route path="/dokumen" element={<Dokumen />} />
+          <Route path="/berita" element={<Berita />} />
+          <Route path="/agenda" element={<Agenda />} />
+          <Route path="/layanan" element={<Layanan />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/tautan" element={<Tautan />} />
+        </Route>
+
+        {/* 2. AUTHENTICATION ADMIN */}
         <Route path="/login" element={<Login />} />
-        <Route path="/tautan" element={<Tautan />} />
+
+        {/* 3. DASHBOARD ADMIN LPPM (TERPROTEKSI) */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Navigate to="/admin/dashboard" replace />} />
+            <Route path="dashboard" element={<DashboardOverview />} />
+            <Route path="berita" element={<KelolaBerita />} />
+            <Route path="agenda" element={<KelolaAgenda />} />
+            <Route path="dokumen" element={<KelolaDokumen />} />
+            <Route path="jurnal" element={<KelolaJurnal />} />
+            <Route path="penelitian" element={<KelolaPenelitian />} />
+            <Route path="pkm" element={<KelolaPKM />} />
+          </Route>
+        </Route>
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

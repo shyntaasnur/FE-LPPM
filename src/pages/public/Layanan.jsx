@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const Layanan = () => {
   // Data Layanan sesuai gambar
@@ -107,9 +105,7 @@ const Layanan = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col justify-between relative">
-      <Navbar />
-
+    <div className="bg-slate-50 text-slate-800 font-sans relative">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#0c2340] text-white px-4 py-3 rounded-lg shadow-xl text-xs flex items-center gap-2 border border-slate-700 animate-fade-in">
@@ -120,72 +116,70 @@ const Layanan = () => {
         </div>
       )}
 
-      <main className="grow">
-        {/* Header Breadcrumb & Judul Halaman */}
-        <div className="bg-white border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 py-8">
-            <div className="text-xs font-semibold text-slate-400 mb-2">
-              <span>Beranda</span> <span className="mx-1">&gt;</span>
-              <span className="text-slate-800 font-bold">Layanan</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
-              Layanan Kami
-            </h1>
+      {/* Header Breadcrumb & Judul Halaman */}
+      <div className="bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-xs font-semibold text-slate-400 mb-2">
+            <span>Beranda</span> <span className="mx-1">&gt;</span>
+            <span className="text-slate-800 font-bold">Layanan</span>
           </div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
+            Layanan Kami
+          </h1>
         </div>
+      </div>
 
-        {/* Konten Utama: 6 Kotak Layanan */}
-        <div className="max-w-7xl mx-auto px-6 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((item) => {
-              const isYellow = item.color === 'yellow';
-              return (
-                <div
-                  key={item.id}
-                  onClick={() => setSelectedService(item)}
-                  className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs flex flex-col justify-between hover:border-slate-300 hover:shadow-md hover:-translate-y-1 transition duration-200 cursor-pointer group"
-                >
-                  <div>
-                    {/* Icon Box */}
-                    <div
-                      className={`w-11 h-11 rounded-xl flex items-center justify-center mb-6 ${
-                        isYellow ? 'bg-amber-50' : 'bg-indigo-50'
-                      }`}
-                    >
-                      {item.icon}
-                    </div>
-
-                    {/* Judul Layanan */}
-                    <h2 className="text-base md:text-lg font-bold text-[#0c2340] mb-3 group-hover:text-teal-700 transition">
-                      {item.title}
-                    </h2>
-
-                    {/* Deskripsi Singkat */}
-                    <p className="text-xs text-slate-500 leading-relaxed">
-                      {item.desc}
-                    </p>
+      {/* Konten Utama: 6 Kotak Layanan */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((item) => {
+            const isYellow = item.color === 'yellow';
+            return (
+              <div
+                key={item.id}
+                onClick={() => setSelectedService(item)}
+                className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs flex flex-col justify-between hover:border-slate-300 hover:shadow-md hover:-translate-y-1 transition duration-200 cursor-pointer group"
+              >
+                <div>
+                  {/* Icon Box */}
+                  <div
+                    className={`w-11 h-11 rounded-xl flex items-center justify-center mb-6 ${
+                      isYellow ? 'bg-amber-50' : 'bg-indigo-50'
+                    }`}
+                  >
+                    {item.icon}
                   </div>
 
-                  {/* Tombol Akses Layanan */}
-                  <div className="pt-8">
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedService(item);
-                      }}
-                      className="text-xs font-semibold text-teal-700 group-hover:text-teal-800 inline-flex items-center gap-1.5 transition cursor-pointer"
-                    >
-                      <span>Akses Layanan</span>
-                      <span className="group-hover:translate-x-1 transition duration-200">&rarr;</span>
-                    </button>
-                  </div>
+                  {/* Judul Layanan */}
+                  <h2 className="text-base md:text-lg font-bold text-[#0c2340] mb-3 group-hover:text-teal-700 transition">
+                    {item.title}
+                  </h2>
+
+                  {/* Deskripsi Singkat */}
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    {item.desc}
+                  </p>
                 </div>
-              );
-            })}
-          </div>
+
+                {/* Tombol Akses Layanan */}
+                <div className="pt-8">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedService(item);
+                    }}
+                    className="text-xs font-semibold text-teal-700 group-hover:text-teal-800 inline-flex items-center gap-1.5 transition cursor-pointer"
+                  >
+                    <span>Akses Layanan</span>
+                    <span className="group-hover:translate-x-1 transition duration-200">&rarr;</span>
+                  </button>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </main>
+      </div>
 
       {/* MODAL: Formulir Akses Layanan */}
       {selectedService && (
@@ -282,8 +276,6 @@ const Layanan = () => {
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 };

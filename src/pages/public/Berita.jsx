@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const Berita = () => {
   const [activeTab, setActiveTab] = useState('SEMUA');
@@ -105,9 +103,7 @@ const Berita = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col justify-between relative">
-      <Navbar />
-
+    <div className="w-full relative">
       {/* Floating Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#0c2340] text-white px-4 py-3 rounded-lg shadow-xl text-xs flex items-center gap-2 border border-slate-700 animate-fade-in">
@@ -118,165 +114,163 @@ const Berita = () => {
         </div>
       )}
 
-      <main className="grow">
-        {/* Header Breadcrumb & Judul Halaman */}
-        <div className="bg-white border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 py-8">
-            <div className="text-xs font-semibold text-slate-400 mb-2">
-              <span>Beranda</span> <span className="mx-1">&gt;</span>
-              <span>Informasi</span> <span className="mx-1">&gt;</span>
-              <span className="text-slate-800 font-bold">Berita</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
-              Berita & Pengumuman
-            </h1>
+      {/* Header Breadcrumb & Judul Halaman */}
+      <div className="bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-xs font-semibold text-slate-400 mb-2">
+            <span>Beranda</span> <span className="mx-1">&gt;</span>
+            <span>Informasi</span> <span className="mx-1">&gt;</span>
+            <span className="text-slate-800 font-bold">Berita</span>
           </div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
+            Berita & Pengumuman
+          </h1>
         </div>
+      </div>
 
-        {/* Konten Utama */}
-        <div className="max-w-7xl mx-auto px-6 py-10">
-          
-          {/* Kontrol Filter & Bilah Pencarian */}
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 pb-4 border-b border-slate-200">
-            <div className="flex items-center gap-6 text-xs font-bold tracking-wider">
-              {['SEMUA', 'BERITA', 'PENGUMUMAN'].map((tab) => {
-                const isActive = activeTab === tab;
-                return (
-                  <button
-                    key={tab}
-                    type="button"
-                    onClick={() => handleTabClick(tab)}
-                    className={`pb-2 transition relative cursor-pointer ${
-                      isActive
-                        ? 'text-[#0c2340] border-b-2 border-amber-400 font-extrabold'
-                        : 'text-slate-400 hover:text-slate-700'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Input Cari */}
-            <div className="w-full sm:w-72">
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setCurrentPage(1);
-                }}
-                placeholder="Cari judul berita..."
-                className="w-full px-3.5 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0c2340] bg-white transition"
-              />
-            </div>
-          </div>
-
-          {/* Kondisi Data Kosong */}
-          {filteredNews.length === 0 ? (
-            <div className="p-12 text-center text-xs text-slate-500 bg-white border border-slate-200 rounded-xl">
-              Tidak ada berita atau pengumuman yang sesuai dengan filter pencarian.
-            </div>
-          ) : (
-            /* Grid Kartu Berita / Pengumuman */
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {displayedNews.map((item) => {
-                const isBerita = item.type.toLowerCase() === 'berita';
-                return (
-                  <div
-                    key={item.id}
-                    className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition duration-200"
-                  >
-                    <div>
-                      {/* Gambar & Badge Tag */}
-                      <div className="relative h-48 w-full overflow-hidden bg-slate-100">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-cover hover:scale-105 transition duration-300"
-                        />
-                        <span
-                          className={`absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded shadow-xs ${
-                            isBerita
-                              ? 'bg-amber-400 text-slate-900'
-                              : 'bg-[#0c2340] text-white'
-                          }`}
-                        >
-                          {item.type}
-                        </span>
-                      </div>
-
-                      {/* Teks Konten */}
-                      <div className="p-5">
-                        <span className="text-[11px] text-slate-400 block mb-1">
-                          {item.date}
-                        </span>
-                        <h3 className="font-bold text-[#0c2340] text-sm md:text-base leading-snug mb-2 line-clamp-2">
-                          {item.title}
-                        </h3>
-                        <p className="text-xs text-slate-500 leading-relaxed line-clamp-3">
-                          {item.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Tombol Baca Selengkapnya */}
-                    <div className="px-5 pb-5 pt-0">
-                      <button
-                        type="button"
-                        onClick={() => setSelectedNews(item)}
-                        className="text-xs font-bold text-cyan-700 hover:text-cyan-800 active:scale-95 inline-flex items-center gap-1 uppercase tracking-wider transition cursor-pointer"
-                      >
-                        BACA SELENGKAPNYA <span>&rarr;</span>
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-
-          {/* Pagination */}
-          {totalPages > 1 && (
-            <div className="flex justify-center items-center gap-1.5 pt-12">
-              <button
-                type="button"
-                disabled={currentPage === 1}
-                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                className="w-8 h-8 flex items-center justify-center rounded border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed text-xs transition cursor-pointer"
-              >
-                &lt;
-              </button>
-
-              {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+      {/* Konten Utama */}
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        
+        {/* Kontrol Filter & Bilah Pencarian */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-10 pb-4 border-b border-slate-200">
+          <div className="flex items-center gap-6 text-xs font-bold tracking-wider">
+            {['SEMUA', 'BERITA', 'PENGUMUMAN'].map((tab) => {
+              const isActive = activeTab === tab;
+              return (
                 <button
-                  key={page}
+                  key={tab}
                   type="button"
-                  onClick={() => setCurrentPage(page)}
-                  className={`w-8 h-8 flex items-center justify-center rounded text-xs font-semibold transition cursor-pointer ${
-                    currentPage === page
-                      ? 'bg-[#0c2340] text-white'
-                      : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                  onClick={() => handleTabClick(tab)}
+                  className={`pb-2 transition relative cursor-pointer ${
+                    isActive
+                      ? 'text-[#0c2340] border-b-2 border-amber-400 font-extrabold'
+                      : 'text-slate-400 hover:text-slate-700'
                   }`}
                 >
-                  {page}
+                  {tab}
                 </button>
-              ))}
+              );
+            })}
+          </div>
 
-              <button
-                type="button"
-                disabled={currentPage === totalPages}
-                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                className="w-8 h-8 flex items-center justify-center rounded border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed text-xs transition cursor-pointer"
-              >
-                &gt;
-              </button>
-            </div>
-          )}
-
+          {/* Input Cari */}
+          <div className="w-full sm:w-72">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1);
+              }}
+              placeholder="Cari judul berita..."
+              className="w-full px-3.5 py-1.5 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0c2340] bg-white transition"
+            />
+          </div>
         </div>
-      </main>
+
+        {/* Kondisi Data Kosong */}
+        {filteredNews.length === 0 ? (
+          <div className="p-12 text-center text-xs text-slate-500 bg-white border border-slate-200 rounded-xl">
+            Tidak ada berita atau pengumuman yang sesuai dengan filter pencarian.
+          </div>
+        ) : (
+          /* Grid Kartu Berita / Pengumuman */
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {displayedNews.map((item) => {
+              const isBerita = item.type.toLowerCase() === 'berita';
+              return (
+                <div
+                  key={item.id}
+                  className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition duration-200"
+                >
+                  <div>
+                    {/* Gambar & Badge Tag */}
+                    <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="w-full h-full object-cover hover:scale-105 transition duration-300"
+                      />
+                      <span
+                        className={`absolute top-3 left-3 text-[10px] font-bold px-2.5 py-0.5 rounded shadow-xs ${
+                          isBerita
+                            ? 'bg-amber-400 text-slate-900'
+                            : 'bg-[#0c2340] text-white'
+                        }`}
+                      >
+                        {item.type}
+                      </span>
+                    </div>
+
+                    {/* Teks Konten */}
+                    <div className="p-5">
+                      <span className="text-[11px] text-slate-400 block mb-1">
+                        {item.date}
+                      </span>
+                      <h3 className="font-bold text-[#0c2340] text-sm md:text-base leading-snug mb-2 line-clamp-2">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-slate-500 leading-relaxed line-clamp-3">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Tombol Baca Selengkapnya */}
+                  <div className="px-5 pb-5 pt-0">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedNews(item)}
+                      className="text-xs font-bold text-cyan-700 hover:text-cyan-800 active:scale-95 inline-flex items-center gap-1 uppercase tracking-wider transition cursor-pointer"
+                    >
+                      BACA SELENGKAPNYA <span>&rarr;</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex justify-center items-center gap-1.5 pt-12">
+            <button
+              type="button"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              className="w-8 h-8 flex items-center justify-center rounded border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed text-xs transition cursor-pointer"
+            >
+              &lt;
+            </button>
+
+            {Array.from({ length: totalPages }, (_, idx) => idx + 1).map((page) => (
+              <button
+                key={page}
+                type="button"
+                onClick={() => setCurrentPage(page)}
+                className={`w-8 h-8 flex items-center justify-center rounded text-xs font-semibold transition cursor-pointer ${
+                  currentPage === page
+                    ? 'bg-[#0c2340] text-white'
+                    : 'border border-slate-200 bg-white text-slate-600 hover:bg-slate-50'
+                }`}
+              >
+                {page}
+              </button>
+            ))}
+
+            <button
+              type="button"
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              className="w-8 h-8 flex items-center justify-center rounded border border-slate-200 bg-white text-slate-500 hover:bg-slate-50 disabled:opacity-40 disabled:cursor-not-allowed text-xs transition cursor-pointer"
+            >
+              &gt;
+            </button>
+          </div>
+        )}
+
+      </div>
 
       {/* Modal Detail Berita */}
       {selectedNews && (
@@ -342,8 +336,6 @@ const Berita = () => {
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 };

@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const Agenda = () => {
   // Mock Data Agenda & Seminar sesuai gambar
@@ -64,9 +62,7 @@ const Agenda = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6]/60 text-slate-800 font-sans flex flex-col justify-between relative">
-      <Navbar />
-
+    <div className="bg-[#f3f4f6]/60 text-slate-800 font-sans relative">
       {/* Floating Toast Notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#0c2340] text-white px-4 py-3 rounded-lg shadow-xl text-xs flex items-center gap-2 border border-slate-700 animate-fade-in">
@@ -77,128 +73,126 @@ const Agenda = () => {
         </div>
       )}
 
-      <main className="grow">
-        {/* Header Breadcrumb & Judul Halaman */}
-        <div className="bg-white border-b border-slate-100">
-          <div className="max-w-6xl mx-auto px-6 py-8">
-            <div className="text-xs font-semibold text-slate-400 mb-2">
-              <span>Beranda</span> <span className="mx-1">&gt;</span>
-              <span>Informasi</span> <span className="mx-1">&gt;</span>
-              <span className="text-slate-800 font-bold">Agenda</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
-              Agenda & Seminar
-            </h1>
+      {/* Header Breadcrumb & Judul Halaman */}
+      <div className="bg-white border-b border-slate-100">
+        <div className="max-w-6xl mx-auto px-6 py-8">
+          <div className="text-xs font-semibold text-slate-400 mb-2">
+            <span>Beranda</span> <span className="mx-1">&gt;</span>
+            <span>Informasi</span> <span className="mx-1">&gt;</span>
+            <span className="text-slate-800 font-bold">Agenda</span>
           </div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
+            Agenda & Seminar
+          </h1>
         </div>
+      </div>
 
-        {/* Konten Utama: Daftar Kartu Agenda */}
-        <div className="max-w-6xl mx-auto px-6 py-10 space-y-8">
-          {agendaList.map((agenda) => (
+      {/* Konten Utama: Daftar Kartu Agenda */}
+      <div className="max-w-6xl mx-auto px-6 py-10 space-y-8">
+        {agendaList.map((agenda) => (
+          <div
+            key={agenda.id}
+            className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden flex flex-col md:flex-row hover:shadow-md transition duration-200"
+          >
+            {/* Kolom 1: Tanggal Box */}
+            <div className="w-full md:w-28 bg-slate-50 md:bg-white flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-slate-100 shrink-0">
+              <span className="text-3xl md:text-4xl font-extrabold text-[#0c2340] leading-none">
+                {agenda.day}
+              </span>
+              <span className="text-xs font-bold text-teal-700 tracking-wider mt-1 uppercase">
+                {agenda.month}
+              </span>
+            </div>
+
+            {/* Kolom 2: Gambar Pamflet / Thumbnail */}
             <div
-              key={agenda.id}
-              className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden flex flex-col md:flex-row hover:shadow-md transition duration-200"
+              onClick={() => setPreviewImage(agenda.image)}
+              className="w-full md:w-44 h-48 md:h-auto bg-slate-100 relative shrink-0 cursor-pointer overflow-hidden group"
             >
-              {/* Kolom 1: Tanggal Box */}
-              <div className="w-full md:w-28 bg-slate-50 md:bg-white flex flex-col items-center justify-center p-6 border-b md:border-b-0 md:border-r border-slate-100 shrink-0">
-                <span className="text-3xl md:text-4xl font-extrabold text-[#0c2340] leading-none">
-                  {agenda.day}
-                </span>
-                <span className="text-xs font-bold text-teal-700 tracking-wider mt-1 uppercase">
-                  {agenda.month}
+              <img
+                src={agenda.image}
+                alt={agenda.title}
+                className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+              />
+              <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
+                <span className="text-[10px] font-semibold text-white bg-black/60 px-2 py-1 rounded">
+                  Lihat Poster
                 </span>
               </div>
+            </div>
 
-              {/* Kolom 2: Gambar Pamflet / Thumbnail */}
-              <div
-                onClick={() => setPreviewImage(agenda.image)}
-                className="w-full md:w-44 h-48 md:h-auto bg-slate-100 relative shrink-0 cursor-pointer overflow-hidden group"
-              >
-                <img
-                  src={agenda.image}
-                  alt={agenda.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                />
-                <div className="absolute inset-0 bg-slate-900/30 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
-                  <span className="text-[10px] font-semibold text-white bg-black/60 px-2 py-1 rounded">
-                    Lihat Poster
-                  </span>
-                </div>
-              </div>
+            {/* Kolom 3: Informasi Detail */}
+            <div className="p-6 grow flex flex-col justify-between space-y-4">
+              <div className="space-y-2.5">
+                <h2 
+                  onClick={() => setSelectedAgenda(agenda)}
+                  className="text-base md:text-lg font-bold text-[#0c2340] leading-snug hover:text-teal-700 cursor-pointer transition"
+                >
+                  {agenda.title}
+                </h2>
 
-              {/* Kolom 3: Informasi Detail */}
-              <div className="p-6 grow flex flex-col justify-between space-y-4">
-                <div className="space-y-2.5">
-                  <h2 
-                    onClick={() => setSelectedAgenda(agenda)}
-                    className="text-base md:text-lg font-bold text-[#0c2340] leading-snug hover:text-teal-700 cursor-pointer transition"
-                  >
-                    {agenda.title}
-                  </h2>
-
-                  {/* Waktu & Lokasi */}
-                  <div className="space-y-1.5 text-xs text-slate-500 font-medium">
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-teal-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" strokeWidth="2" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6l4 2" />
-                      </svg>
-                      <span>{agenda.time}</span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-teal-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      <span>{agenda.location}</span>
-                    </div>
+                {/* Waktu & Lokasi */}
+                <div className="space-y-1.5 text-xs text-slate-500 font-medium">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-teal-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" strokeWidth="2" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6l4 2" />
+                    </svg>
+                    <span>{agenda.time}</span>
                   </div>
 
-                  <p className="text-xs text-slate-600 leading-relaxed pt-1">
-                    {agenda.description}
-                  </p>
-                </div>
-              </div>
-
-              {/* Kolom 4: Narahubung & Tombol Aksi */}
-              <div className="p-6 md:w-56 bg-slate-50/50 flex flex-col justify-between items-start md:items-end border-t md:border-t-0 md:border-l border-slate-100 shrink-0">
-                <div className="space-y-1 text-left md:text-right w-full mb-6 md:mb-0">
-                  <span className="text-[11px] font-semibold text-slate-400 block">
-                    Narahubung:
-                  </span>
-                  <p className="text-xs font-bold text-[#0c2340]">
-                    {agenda.contactPerson}
-                  </p>
-                  {agenda.contactType === 'email' ? (
-                    <a
-                      href={`mailto:${agenda.contactValue}`}
-                      className="text-[11px] text-teal-700 hover:underline break-all block"
-                    >
-                      {agenda.contactValue}
-                    </a>
-                  ) : (
-                    <a
-                      href={`tel:${agenda.contactValue}`}
-                      className="text-[11px] text-teal-700 hover:underline block"
-                    >
-                      {agenda.contactValue}
-                    </a>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-teal-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>{agenda.location}</span>
+                  </div>
                 </div>
 
-                <button
-                  type="button"
-                  onClick={() => setSelectedAgenda(agenda)}
-                  className="w-full md:w-auto bg-[#0c2340] hover:bg-[#123055] active:scale-95 text-white text-xs font-bold px-6 py-2.5 rounded shadow-sm transition cursor-pointer"
-                >
-                  Daftar Sekarang
-                </button>
+                <p className="text-xs text-slate-600 leading-relaxed pt-1">
+                  {agenda.description}
+                </p>
               </div>
             </div>
-          ))}
-        </div>
-      </main>
+
+            {/* Kolom 4: Narahubung & Tombol Aksi */}
+            <div className="p-6 md:w-56 bg-slate-50/50 flex flex-col justify-between items-start md:items-end border-t md:border-t-0 md:border-l border-slate-100 shrink-0">
+              <div className="space-y-1 text-left md:text-right w-full mb-6 md:mb-0">
+                <span className="text-[11px] font-semibold text-slate-400 block">
+                  Narahubung:
+                </span>
+                <p className="text-xs font-bold text-[#0c2340]">
+                  {agenda.contactPerson}
+                </p>
+                {agenda.contactType === 'email' ? (
+                  <a
+                    href={`mailto:${agenda.contactValue}`}
+                    className="text-[11px] text-teal-700 hover:underline break-all block"
+                  >
+                    {agenda.contactValue}
+                  </a>
+                ) : (
+                  <a
+                    href={`tel:${agenda.contactValue}`}
+                    className="text-[11px] text-teal-700 hover:underline block"
+                  >
+                    {agenda.contactValue}
+                  </a>
+                )}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setSelectedAgenda(agenda)}
+                className="w-full md:w-auto bg-[#0c2340] hover:bg-[#123055] active:scale-95 text-white text-xs font-bold px-6 py-2.5 rounded shadow-sm transition cursor-pointer"
+              >
+                Daftar Sekarang
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* MODAL 1: Form Pendaftaran Acara */}
       {selectedAgenda && (
@@ -306,8 +300,6 @@ const Agenda = () => {
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 };

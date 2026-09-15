@@ -74,7 +74,7 @@ const Navbar = () => {
             <div className="absolute left-0 top-full hidden group-hover:flex flex-col bg-white shadow-lg rounded-md border border-slate-100 py-2 w-48 text-sm">
               <Link to="/berita" className="px-4 py-2 hover:bg-slate-50 hover:text-custom-cyan transition-colors">Berita</Link>
               <Link to="/agenda" className="px-4 py-2 hover:bg-slate-50 hover:text-custom-cyan transition-colors">Agenda</Link>
-              <a href="https://itpln.ac.id" target="_blank" rel="noopener noreferrer" className="px-4 py-2 hover:bg-slate-50 hover:text-custom-cyan transition-colors">Tautan Terkait</a>
+              <Link to="/tautan" className="px-4 py-2 hover:bg-slate-50 hover:text-custom-cyan transition-colors">Tautan</Link>
             </div>
           </div>
 

@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const Penelitian = () => {
   // State untuk modal pop-up skema & publikasi
@@ -86,7 +84,6 @@ const Penelitian = () => {
 
   // Handler fungsi unduh
   const handleDownload = (docName, fileName) => {
-    // Membuat file dummy otomatis untuk simulasi download langsung di browser
     const dummyContent = `Dokumen Resmi LPPM IT-PLN: ${docName}\nDiunduh pada: ${new Date().toLocaleString()}`;
     const blob = new Blob([dummyContent], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -100,196 +97,191 @@ const Penelitian = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col justify-between">
-      {/* Reusable Navbar */}
-      <Navbar />
-
-      <main className="grow">
-        {/* Header Breadcrumb & Judul Halaman */}
-        <div className="bg-white border-b border-sky-500">
-          <div className="max-w-7xl mx-auto px-6 py-8">
-            <div className="text-xs font-semibold text-slate-400 mb-2">
-              <span>Beranda</span> <span className="mx-1">&gt;</span> 
-              <span>Program</span> <span className="mx-1">&gt;</span> 
-              <span className="text-slate-800 font-bold">Penelitian</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
-              Program Penelitian
-            </h1>
+    <div className="w-full relative">
+      {/* Header Breadcrumb & Judul Halaman */}
+      <div className="bg-white border-b border-sky-500">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-xs font-semibold text-slate-400 mb-2">
+            <span>Beranda</span> <span className="mx-1">&gt;</span> 
+            <span>Program</span> <span className="mx-1">&gt;</span> 
+            <span className="text-slate-800 font-bold">Penelitian</span>
           </div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
+            Program Penelitian
+          </h1>
         </div>
+      </div>
 
-        {/* Konten Halaman */}
-        <div className="max-w-7xl mx-auto px-6 py-12 space-y-12">
-          
-          {/* SECTION 1: Skema & Informasi Pendanaan */}
-          <section>
-            <h2 className="text-xl font-bold text-[#0c2340] mb-6">
-              Skema & Informasi Pendanaan
-            </h2>
+      {/* Konten Halaman */}
+      <div className="max-w-7xl mx-auto px-6 py-12 space-y-12">
+        
+        {/* SECTION 1: Skema & Informasi Pendanaan */}
+        <section>
+          <h2 className="text-xl font-bold text-[#0c2340] mb-6">
+            Skema & Informasi Pendanaan
+          </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {skemaData.map((skema) => (
-                <div 
-                  key={skema.id}
-                  className="bg-white rounded-xl border-t-4 border-t-amber-400 border-x border-b border-slate-200 p-6 flex flex-col justify-between shadow-xs hover:shadow-md transition"
-                >
-                  <div>
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-bold text-slate-900 text-base">{skema.title}</h3>
-                      <div className="text-cyan-600">
-                        {skema.icon}
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {skemaData.map((skema) => (
+              <div 
+                key={skema.id}
+                className="bg-white rounded-xl border-t-4 border-t-amber-400 border-x border-b border-slate-200 p-6 flex flex-col justify-between shadow-xs hover:shadow-md transition"
+              >
+                <div>
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="font-bold text-slate-900 text-base">{skema.title}</h3>
+                    <div className="text-cyan-600">
+                      {skema.icon}
                     </div>
-                    <p className="text-xs text-slate-500 leading-relaxed">
-                      {skema.desc}
-                    </p>
                   </div>
-                  <div className="pt-6 flex justify-between items-center text-xs">
-                    <span className="font-semibold text-slate-800">{skema.dana}</span>
-                    <button
-                      onClick={() => setActiveModal(skema)}
-                      className="text-cyan-600 hover:text-cyan-800 font-medium underline cursor-pointer"
-                    >
-                      Detail
-                    </button>
-                  </div>
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    {skema.desc}
+                  </p>
                 </div>
-              ))}
-            </div>
-          </section>
-
-          {/* SECTION 2: Unduh Dokumen */}
-          <section className="bg-white border border-slate-200 rounded-xl p-8 shadow-xs">
-            <h2 className="text-lg font-bold text-[#0c2340] border-l-4 border-amber-400 pl-3 mb-6">
-              Unduh Dokumen
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
-              {dokumenList.map((doc, idx) => (
-                <div key={idx} className="flex items-center justify-between pb-2 border-b border-slate-100">
-                  <div className="flex items-center gap-3">
-                    <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    <span className="text-xs font-semibold text-slate-700">{doc.name}</span>
-                  </div>
-                  <button 
-                    onClick={() => handleDownload(doc.name, doc.file)}
-                    className="text-cyan-600 hover:text-cyan-800 hover:scale-110 transition cursor-pointer p-1"
-                    title={`Unduh ${doc.name}`}
+                <div className="pt-6 flex justify-between items-center text-xs">
+                  <span className="font-semibold text-slate-800">{skema.dana}</span>
+                  <button
+                    onClick={() => setActiveModal(skema)}
+                    className="text-cyan-600 hover:text-cyan-800 font-medium underline cursor-pointer"
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
+                    Detail
                   </button>
                 </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 2: Unduh Dokumen */}
+        <section className="bg-white border border-slate-200 rounded-xl p-8 shadow-xs">
+          <h2 className="text-lg font-bold text-[#0c2340] border-l-4 border-amber-400 pl-3 mb-6">
+            Unduh Dokumen
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+            {dokumenList.map((doc, idx) => (
+              <div key={idx} className="flex items-center justify-between pb-2 border-b border-slate-100">
+                <div className="flex items-center gap-3">
+                  <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                  <span className="text-xs font-semibold text-slate-700">{doc.name}</span>
+                </div>
+                <button 
+                  onClick={() => handleDownload(doc.name, doc.file)}
+                  className="text-cyan-600 hover:text-cyan-800 hover:scale-110 transition cursor-pointer p-1"
+                  title={`Unduh ${doc.name}`}
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 3: Publikasi & Hasil Luaran + Agenda Terdekat */}
+        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          {/* Kolom Kiri: Publikasi & Hasil Luaran */}
+          <div className="lg:col-span-8">
+            <h2 className="text-lg font-bold text-[#0c2340] border-l-4 border-cyan-500 pl-3 mb-6">
+              Publikasi & Hasil Luaran
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              {publikasiList.slice(0, 2).map((pub, idx) => (
+                <div 
+                  key={idx}
+                  className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-cyan-600 p-5 shadow-xs flex flex-col justify-between hover:border-slate-300 transition"
+                >
+                  <div>
+                    <a 
+                      href={`https://doi.org/${pub.doi}`} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="text-[10px] text-slate-400 font-mono block mb-1 hover:text-cyan-600 hover:underline cursor-pointer"
+                    >
+                      DOI: {pub.doi}
+                    </a>
+                    <h3 className="font-bold text-slate-900 text-xs leading-snug mb-4">
+                      {pub.title}
+                    </h3>
+                  </div>
+                  <span className="text-[11px] text-slate-500">
+                    {pub.journal}
+                  </span>
+                </div>
               ))}
             </div>
-          </section>
 
-          {/* SECTION 3: Publikasi & Hasil Luaran + Agenda Terdekat */}
-          <section className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            {/* Kolom Kiri: Publikasi & Hasil Luaran */}
-            <div className="lg:col-span-8">
-              <h2 className="text-lg font-bold text-[#0c2340] border-l-4 border-cyan-500 pl-3 mb-6">
-                Publikasi & Hasil Luaran
-              </h2>
+            {/* Tombol Lihat Semua Publikasi */}
+            <button 
+              onClick={() => setShowAllPublikasi(true)}
+              className="inline-block border border-slate-400 hover:border-slate-800 hover:bg-slate-100 text-slate-800 font-semibold text-xs px-4 py-2 rounded-sm transition cursor-pointer"
+            >
+              Lihat Semua Publikasi
+            </button>
+          </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-                {publikasiList.slice(0, 2).map((pub, idx) => (
-                  <div 
-                    key={idx}
-                    className="bg-white rounded-xl border border-slate-200 border-l-4 border-l-cyan-600 p-5 shadow-xs flex flex-col justify-between hover:border-slate-300 transition"
-                  >
-                    <div>
-                      <a 
-                        href={`https://doi.org/${pub.doi}`} 
-                        target="_blank" 
-                        rel="noreferrer"
-                        className="text-[10px] text-slate-400 font-mono block mb-1 hover:text-cyan-600 hover:underline cursor-pointer"
-                      >
-                        DOI: {pub.doi}
-                      </a>
-                      <h3 className="font-bold text-slate-900 text-xs leading-snug mb-4">
-                        {pub.title}
-                      </h3>
-                    </div>
-                    <span className="text-[11px] text-slate-500">
-                      {pub.journal}
-                    </span>
-                  </div>
-                ))}
-              </div>
+          {/* Kolom Kanan: Agenda Terdekat */}
+          <div className="lg:col-span-4">
+            <h2 className="text-lg font-bold text-[#0c2340] border-l-4 border-amber-400 pl-3 mb-6">
+              Agenda Terdekat
+            </h2>
 
-              {/* Tombol Lihat Semua Publikasi */}
-              <button 
-                onClick={() => setShowAllPublikasi(true)}
-                className="inline-block border border-slate-400 hover:border-slate-800 hover:bg-slate-100 text-slate-800 font-semibold text-xs px-4 py-2 rounded-sm transition cursor-pointer"
+            <div className="bg-white border border-slate-200 rounded-xl p-6 space-y-6 shadow-xs">
+              {/* Agenda 1 */}
+              <div 
+                onClick={() => alert('Batas Akhir Penerimaan Proposal: 15 Oktober 23:59 WIB. Pastikan proposal Anda telah disubmit melalui sistem!')}
+                className="flex items-start gap-4 cursor-pointer p-2 rounded-lg hover:bg-slate-50 transition"
               >
-                Lihat Semua Publikasi
-              </button>
-            </div>
-
-            {/* Kolom Kanan: Agenda Terdekat */}
-            <div className="lg:col-span-4">
-              <h2 className="text-lg font-bold text-[#0c2340] border-l-4 border-amber-400 pl-3 mb-6">
-                Agenda Terdekat
-              </h2>
-
-              <div className="bg-white border border-slate-200 rounded-xl p-6 space-y-6 shadow-xs">
-                {/* Agenda 1 */}
-                <div 
-                  onClick={() => alert('Batas Akhir Penerimaan Proposal: 15 Oktober 23:59 WIB. Pastikan proposal Anda telah disubmit melalui sistem!')}
-                  className="flex items-start gap-4 cursor-pointer p-2 rounded-lg hover:bg-slate-50 transition"
-                >
-                  <div className="w-12 h-12 bg-amber-400 text-slate-900 rounded-lg flex flex-col items-center justify-center shrink-0">
-                    <span className="text-base font-extrabold leading-none">15</span>
-                    <span className="text-[10px] font-bold tracking-wider uppercase">OKT</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 text-xs leading-tight">
-                      Batas Akhir Penerimaan Proposal
-                    </h3>
-                    <div className="flex items-center gap-1.5 text-[11px] text-slate-500 mt-1">
-                      <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" strokeWidth="2" />
-                        <polyline points="12 6 12 12 16 14" strokeWidth="2" />
-                      </svg>
-                      <span>23:59 WIB</span>
-                    </div>
+                <div className="w-12 h-12 bg-amber-400 text-slate-900 rounded-lg flex flex-col items-center justify-center shrink-0">
+                  <span className="text-base font-extrabold leading-none">15</span>
+                  <span className="text-[10px] font-bold tracking-wider uppercase">OKT</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-xs leading-tight">
+                    Batas Akhir Penerimaan Proposal
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-[11px] text-slate-500 mt-1">
+                    <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" strokeWidth="2" />
+                      <polyline points="12 6 12 12 16 14" strokeWidth="2" />
+                    </svg>
+                    <span>23:59 WIB</span>
                   </div>
                 </div>
+              </div>
 
-                {/* Agenda 2 */}
-                <div 
-                  onClick={() => alert('Pengumuman Desk Evaluasi akan dirilis pada 28 Oktober melalui Portal Peneliti LPPM IT-PLN.')}
-                  className="flex items-start gap-4 cursor-pointer p-2 rounded-lg hover:bg-slate-50 transition"
-                >
-                  <div className="w-12 h-12 bg-slate-100 text-slate-700 rounded-lg flex flex-col items-center justify-center shrink-0">
-                    <span className="text-base font-extrabold leading-none">28</span>
-                    <span className="text-[10px] font-bold tracking-wider uppercase">OKT</span>
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-slate-900 text-xs leading-tight">
-                      Pengumuman Desk Evaluasi
-                    </h3>
-                    <div className="flex items-center gap-1.5 text-[11px] text-slate-500 mt-1">
-                      <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                      </svg>
-                      <span>Portal Peneliti</span>
-                    </div>
+              {/* Agenda 2 */}
+              <div 
+                onClick={() => alert('Pengumuman Desk Evaluasi akan dirilis pada 28 Oktober melalui Portal Peneliti LPPM IT-PLN.')}
+                className="flex items-start gap-4 cursor-pointer p-2 rounded-lg hover:bg-slate-50 transition"
+              >
+                <div className="w-12 h-12 bg-slate-100 text-slate-700 rounded-lg flex flex-col items-center justify-center shrink-0">
+                  <span className="text-base font-extrabold leading-none">28</span>
+                  <span className="text-[10px] font-bold tracking-wider uppercase">OKT</span>
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 text-xs leading-tight">
+                    Pengumuman Desk Evaluasi
+                  </h3>
+                  <div className="flex items-center gap-1.5 text-[11px] text-slate-500 mt-1">
+                    <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    <span>Portal Peneliti</span>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-          </section>
+        </section>
 
-        </div>
-      </main>
+      </div>
 
       {/* MODAL POP-UP: Detail Skema Pendanaan */}
       {activeModal && (
@@ -376,9 +368,6 @@ const Penelitian = () => {
           </div>
         </div>
       )}
-
-      {/* Reusable Footer */}
-      <Footer />
     </div>
   );
 };

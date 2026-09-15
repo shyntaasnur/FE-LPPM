@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
 
 const PKM = () => {
   // Data Program Pengabdian
@@ -94,9 +92,7 @@ const PKM = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans flex flex-col justify-between relative">
-      <Navbar />
-
+    <div className="w-full relative">
       {/* Toast Feedback */}
       {toastMsg && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#0c2340] text-white px-4 py-3 rounded-lg shadow-xl text-xs flex items-center gap-2 border border-slate-700 animate-fade-in">
@@ -107,185 +103,183 @@ const PKM = () => {
         </div>
       )}
 
-      <main className="grow">
-        {/* Header Breadcrumb */}
-        <div className="bg-white border-b border-slate-100">
-          <div className="max-w-7xl mx-auto px-6 py-8">
-            <div className="text-xs font-semibold text-slate-400 mb-2">
-              <span>Beranda</span> <span className="mx-1">&gt;</span> 
-              <span>Program</span> <span className="mx-1">&gt;</span> 
-              <span className="text-[#0c2340] font-bold">PKM</span>
-            </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
-              Pengabdian Kepada Masyarakat
-            </h1>
+      {/* Header Breadcrumb */}
+      <div className="bg-white border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="text-xs font-semibold text-slate-400 mb-2">
+            <span>Beranda</span> <span className="mx-1">&gt;</span> 
+            <span>Program</span> <span className="mx-1">&gt;</span> 
+            <span className="text-[#0c2340] font-bold">PKM</span>
           </div>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-[#0c2340]">
+            Pengabdian Kepada Masyarakat
+          </h1>
         </div>
+      </div>
 
-        {/* Konten Utama */}
-        <div className="max-w-7xl mx-auto px-6 py-12 space-y-16">
-          
-          {/* SECTION 1: Program Pengabdian */}
-          <section>
-            <h2 className="text-xl font-bold text-[#0c2340] mb-6">
-              Program Pengabdian
-            </h2>
+      {/* Konten Utama */}
+      <div className="max-w-7xl mx-auto px-6 py-12 space-y-16">
+        
+        {/* SECTION 1: Program Pengabdian */}
+        <section>
+          <h2 className="text-xl font-bold text-[#0c2340] mb-6">
+            Program Pengabdian
+          </h2>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {programs.map((prog) => (
-                <div 
-                  key={prog.id} 
-                  className="bg-white rounded-xl overflow-hidden shadow-xs border border-slate-200 flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition duration-200"
-                >
-                  <div>
-                    <div className="relative h-48 w-full overflow-hidden bg-slate-100">
-                      <img 
-                        src={prog.img} 
-                        alt={prog.title} 
-                        className="w-full h-full object-cover hover:scale-105 transition duration-300 cursor-pointer"
-                        onClick={() => setSelectedProgram(prog)}
-                      />
-                      <span className="absolute top-3 left-3 bg-[#f5ca38] text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded shadow-xs">
-                        {prog.badge}
-                      </span>
-                    </div>
-
-                    <div className="p-5">
-                      <h3 
-                        onClick={() => setSelectedProgram(prog)}
-                        className="font-bold text-[#0c2340] text-base mb-2 leading-snug cursor-pointer hover:text-cyan-700 transition"
-                      >
-                        {prog.title}
-                      </h3>
-                      <p className="text-xs text-slate-500 leading-relaxed">
-                        {prog.desc}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="px-5 pb-5">
-                    <button 
-                      type="button"
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {programs.map((prog) => (
+              <div 
+                key={prog.id} 
+                className="bg-white rounded-xl overflow-hidden shadow-xs border border-slate-200 flex flex-col justify-between hover:shadow-md hover:border-slate-300 transition duration-200"
+              >
+                <div>
+                  <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                    <img 
+                      src={prog.img} 
+                      alt={prog.title} 
+                      className="w-full h-full object-cover hover:scale-105 transition duration-300 cursor-pointer"
                       onClick={() => setSelectedProgram(prog)}
-                      className="text-xs font-semibold text-cyan-700 hover:text-cyan-800 inline-flex items-center gap-1 active:scale-95 transition cursor-pointer"
-                    >
-                      Selengkapnya <span>&rarr;</span>
-                    </button>
+                    />
+                    <span className="absolute top-3 left-3 bg-[#f5ca38] text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded shadow-xs">
+                      {prog.badge}
+                    </span>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
 
-          {/* SECTION 2: Pengumuman & Panduan/Template */}
-          <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            
-            {/* Kolom Kiri: Pengumuman */}
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <svg className="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                </svg>
-                <h2 className="text-lg font-bold text-[#0c2340]">Pengumuman</h2>
-              </div>
-
-              <div className="space-y-4">
-                {announcements.map((ann) => (
-                  <div 
-                    key={ann.id} 
-                    onClick={() => setSelectedAnnouncement(ann)}
-                    className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:border-slate-300 hover:shadow-sm cursor-pointer transition"
-                  >
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="bg-[#f5ca38] text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded">
-                        PENGUMUMAN
-                      </span>
-                      <span className="text-[11px] text-slate-400">{ann.date}</span>
-                    </div>
-                    <h3 className="font-bold text-[#0c2340] text-xs md:text-sm leading-snug hover:text-cyan-700 transition">
-                      {ann.title}
+                  <div className="p-5">
+                    <h3 
+                      onClick={() => setSelectedProgram(prog)}
+                      className="font-bold text-[#0c2340] text-base mb-2 leading-snug cursor-pointer hover:text-cyan-700 transition"
+                    >
+                      {prog.title}
                     </h3>
+                    <p className="text-xs text-slate-500 leading-relaxed">
+                      {prog.desc}
+                    </p>
                   </div>
-                ))}
-              </div>
-            </div>
+                </div>
 
-            {/* Kolom Kanan: Panduan & Template */}
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <svg className="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <h2 className="text-lg font-bold text-[#0c2340]">Panduan & Template</h2>
-              </div>
-
-              <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100 shadow-xs">
-                {documents.map((doc) => (
-                  <div 
-                    key={doc.id} 
-                    className="p-4 flex items-center justify-between hover:bg-slate-50 transition"
+                <div className="px-5 pb-5">
+                  <button 
+                    type="button"
+                    onClick={() => setSelectedProgram(prog)}
+                    className="text-xs font-semibold text-cyan-700 hover:text-cyan-800 inline-flex items-center gap-1 active:scale-95 transition cursor-pointer"
                   >
-                    <span 
-                      onClick={() => handleDownload(doc)}
-                      className="text-xs font-semibold text-slate-700 hover:text-cyan-700 cursor-pointer transition"
-                    >
-                      {doc.name}
-                    </span>
-                    <button 
-                      type="button"
-                      onClick={() => handleDownload(doc)}
-                      disabled={downloadingId === doc.id}
-                      className="text-slate-500 hover:text-[#0c2340] p-1.5 rounded transition cursor-pointer disabled:opacity-50" 
-                      title="Unduh Dokumen"
-                    >
-                      {downloadingId === doc.id ? (
-                        <div className="w-4 h-4 border-2 border-[#0c2340] border-t-transparent rounded-full animate-spin"></div>
-                      ) : (
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                        </svg>
-                      )}
-                    </button>
-                  </div>
-                ))}
+                    Selengkapnya <span>&rarr;</span>
+                  </button>
+                </div>
               </div>
+            ))}
+          </div>
+        </section>
+
+        {/* SECTION 2: Pengumuman & Panduan/Template */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {/* Kolom Kiri: Pengumuman */}
+          <div>
+            <div className="flex items-center gap-2 mb-6">
+              <svg className="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+              </svg>
+              <h2 className="text-lg font-bold text-[#0c2340]">Pengumuman</h2>
             </div>
 
-          </section>
-
-          {/* SECTION 3: Galeri & Hasil Kegiatan */}
-          <section>
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-[#0c2340]">
-                Galeri & Hasil Kegiatan
-              </h2>
-              <span className="text-xs text-slate-400">Klik gambar untuk melihat detail</span>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {galleryItems.map((item) => (
+            <div className="space-y-4">
+              {announcements.map((ann) => (
                 <div 
-                  key={item.id} 
-                  onClick={() => setSelectedGallery(item)}
-                  className="aspect-square rounded-xl overflow-hidden shadow-xs border border-slate-200 cursor-pointer group relative bg-slate-100"
+                  key={ann.id} 
+                  onClick={() => setSelectedAnnouncement(ann)}
+                  className="bg-white rounded-xl border border-slate-200 p-5 shadow-xs hover:border-slate-300 hover:shadow-sm cursor-pointer transition"
                 >
-                  <img 
-                    src={item.img} 
-                    alt={item.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
-                  />
-                  <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition duration-200">
-                    <span className="text-[11px] font-semibold text-white leading-tight line-clamp-2">
-                      {item.title}
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="bg-[#f5ca38] text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded">
+                      PENGUMUMAN
                     </span>
+                    <span className="text-[11px] text-slate-400">{ann.date}</span>
                   </div>
+                  <h3 className="font-bold text-[#0c2340] text-xs md:text-sm leading-snug hover:text-cyan-700 transition">
+                    {ann.title}
+                  </h3>
                 </div>
               ))}
             </div>
-          </section>
+          </div>
 
-        </div>
-      </main>
+          {/* Kolom Kanan: Panduan & Template */}
+          <div>
+            <div className="flex items-center gap-2 mb-6">
+              <svg className="w-5 h-5 text-teal-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              <h2 className="text-lg font-bold text-[#0c2340]">Panduan & Template</h2>
+            </div>
+
+            <div className="bg-white rounded-xl border border-slate-200 divide-y divide-slate-100 shadow-xs">
+              {documents.map((doc) => (
+                <div 
+                  key={doc.id} 
+                  className="p-4 flex items-center justify-between hover:bg-slate-50 transition"
+                >
+                  <span 
+                    onClick={() => handleDownload(doc)}
+                    className="text-xs font-semibold text-slate-700 hover:text-cyan-700 cursor-pointer transition"
+                  >
+                    {doc.name}
+                  </span>
+                  <button 
+                    type="button"
+                    onClick={() => handleDownload(doc)}
+                    disabled={downloadingId === doc.id}
+                    className="text-slate-500 hover:text-[#0c2340] p-1.5 rounded transition cursor-pointer disabled:opacity-50" 
+                    title="Unduh Dokumen"
+                  >
+                    {downloadingId === doc.id ? (
+                      <div className="w-4 h-4 border-2 border-[#0c2340] border-t-transparent rounded-full animate-spin"></div>
+                    ) : (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+        </section>
+
+        {/* SECTION 3: Galeri & Hasil Kegiatan */}
+        <section>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-bold text-[#0c2340]">
+              Galeri & Hasil Kegiatan
+            </h2>
+            <span className="text-xs text-slate-400">Klik gambar untuk melihat detail</span>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {galleryItems.map((item) => (
+              <div 
+                key={item.id} 
+                onClick={() => setSelectedGallery(item)}
+                className="aspect-square rounded-xl overflow-hidden shadow-xs border border-slate-200 cursor-pointer group relative bg-slate-100"
+              >
+                <img 
+                  src={item.img} 
+                  alt={item.title} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                />
+                <div className="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 flex flex-col justify-end p-3 transition duration-200">
+                  <span className="text-[11px] font-semibold text-white leading-tight line-clamp-2">
+                    {item.title}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+      </div>
 
       {/* MODAL 1: Detail Program */}
       {selectedProgram && (
@@ -398,8 +392,6 @@ const PKM = () => {
           </div>
         </div>
       )}
-
-      <Footer />
     </div>
   );
 };
